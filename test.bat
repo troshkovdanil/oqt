@@ -3,6 +3,7 @@ mkdir build
 cd build
 
 python ..\test\test.py
+pytest ..\test\test.py
 
 cl ..\test\test.c /Fotest_c.obj /Fetest_c.exe
 test_c.exe

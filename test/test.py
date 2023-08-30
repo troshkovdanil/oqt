@@ -10,3 +10,14 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 print(f"{bcolors.OKGREEN}Hi Python!{bcolors.ENDC}")
+
+
+
+import pytest
+
+def dec_10111():
+    num = int("10111", 2)
+    return num
+
+def test_dec_10111():
+    assert dec_10111() == 23
