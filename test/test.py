@@ -15,9 +15,9 @@ print(f"{bcolors.OKGREEN}Hi Python!{bcolors.ENDC}")
 
 import pytest
 
-def dec_10111():
-    num = int("10111", 2)
-    return num
 
 def test_dec_10111():
-    assert dec_10111() == 23
+    assert int("10111", 2) == 23
+
+def test_dec_11001010():
+    assert int("11001010", 2) == 202
