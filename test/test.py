@@ -21,3 +21,9 @@ def test_dec_10111():
 
 def test_dec_11001010():
     assert int("11001010", 2) == 202
+
+def test_bin_42():
+    assert str(bin(42)) == "0b101010"
+
+def test_bin_495():
+    assert str(bin(495)) == "0b111101111"
