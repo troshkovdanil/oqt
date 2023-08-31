@@ -42,3 +42,32 @@ def test_hex_10_to_dec():
 
 def test_hex_E4_to_dec():
     assert int("E4", 16) == 228
+
+
+
+from bitstring import BitArray
+
+
+def test_bin_000_to_dec():
+    assert BitArray(bin="000").int == 0
+
+def test_bin_001_to_dec():
+    assert BitArray(bin="001").int == 1
+
+def test_bin_010_to_dec():
+    assert BitArray(bin="010").int == 2
+
+def test_bin_011_to_dec():
+    assert BitArray(bin="011").int == 3
+
+def test_bin_100_to_dec():
+    assert BitArray(bin="100").int == -4
+
+def test_bin_101_to_dec():
+    assert BitArray(bin="101").int == -3
+
+def test_bin_110_to_dec():
+    assert BitArray(bin="110").int == -2
+
+def test_bin_111_to_dec():
+    assert BitArray(bin="111").int == -1
