@@ -71,3 +71,14 @@ def test_bin_110_to_dec():
 
 def test_bin_111_to_dec():
     assert BitArray(bin="111").int == -1
+
+
+def test_bin_1010001_to_char():
+    assert BitArray(bin="1010001").uint == ord('Q')
+    
+def test_bits_to_ASCII():
+    bits_list = [1010001, 1110101, 1100001, 1101110, 1110100, 1110101, 1101101]
+    chars_list = "Quantum"
+    assert len(bits_list) == len(chars_list)
+    for i in range(len(bits_list)):
+        assert BitArray(bin=str(bits_list[i])).uint == ord(chars_list[i])
