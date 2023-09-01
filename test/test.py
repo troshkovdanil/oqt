@@ -103,6 +103,21 @@ def gate_OR(A, B):
             return truth_table[i][1]
     assert 0
 
+def gate_XOR(A, B):
+    assert A == 0 or A == 1
+    assert B == 0 or B == 1
+    truth_table = [
+        [[0, 0], 0],
+        [[0, 1], 1],
+        [[1, 0], 1],
+        [[1, 1], 0]
+    ]
+    assert len(truth_table) == 2*2
+    for i in range(len(truth_table)):
+        if truth_table[i][0][0] == A and truth_table[i][0][1] == B:
+            return truth_table[i][1]
+    assert 0
+
 def gate_AND(A, B):
     assert A == 0 or A == 1
     assert B == 0 or B == 1
@@ -153,3 +168,22 @@ def test_NEG_AND():
     for i in range(len(truth_table)):
         assert gate_NEG_AND(truth_table[i][0][0], truth_table[i][0][1]) == truth_table[i][1]
         assert     gate_NOR(truth_table[i][0][0], truth_table[i][0][1]) == truth_table[i][1]
+
+def gate_XOR3(A, B, C):
+    return gate_XOR(gate_XOR(A, B), C)
+
+def test_XOR3():
+    truth_table = [
+        [[0, 0, 0], 0],
+        [[0, 0, 1], 1],
+        [[0, 1, 0], 1],
+        [[0, 1, 1], 0],
+        [[1, 0, 0], 1],
+        [[1, 0, 1], 0],
+        [[1, 1, 0], 0],
+        [[1, 1, 1], 1]
+    ]
+    assert len(truth_table) == 2**3
+    for i in range(len(truth_table)):
+        assert gate_XOR3(truth_table[i][0][0], truth_table[i][0][1], truth_table[i][0][2]) == truth_table[i][1]
+        assert truth_table[i][1] == 0 if (truth_table[i][0][0] + truth_table[i][0][1] + truth_table[i][0][2]) % 2 == 0 else truth_table[i][1] == 1
