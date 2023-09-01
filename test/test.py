@@ -111,7 +111,7 @@ def gate_OR(A, B):
         [[1, 0], 1],
         [[1, 1], 1]
     ]
-    assert len(truth_table) == 2*2
+    assert len(truth_table) == 2**2
     for i in range(len(truth_table)):
         if truth_table[i][0][0] == A and truth_table[i][0][1] == B:
             return truth_table[i][1]
@@ -126,7 +126,7 @@ def gate_XOR(A, B):
         [[1, 0], 1],
         [[1, 1], 0]
     ]
-    assert len(truth_table) == 2*2
+    assert len(truth_table) == 2**2
     for i in range(len(truth_table)):
         if truth_table[i][0][0] == A and truth_table[i][0][1] == B:
             return truth_table[i][1]
@@ -141,7 +141,7 @@ def gate_AND(A, B):
         [[1, 0], 0],
         [[1, 1], 1]
     ]
-    assert len(truth_table) == 2*2
+    assert len(truth_table) == 2**2
     for i in range(len(truth_table)):
         if truth_table[i][0][0] == A and truth_table[i][0][1] == B:
             return truth_table[i][1]
@@ -161,7 +161,7 @@ def test_NEG_OR():
         [[1, 0], 1],
         [[1, 1], 0]
     ]
-    assert len(truth_table) == 2*2
+    assert len(truth_table) == 2**2
     for i in range(len(truth_table)):
         A = truth_table[i][0][0]
         B = truth_table[i][0][1]
@@ -184,7 +184,7 @@ def test_NEG_AND():
         [[1, 0], 0],
         [[1, 1], 0]
     ]
-    assert len(truth_table) == 2*2
+    assert len(truth_table) == 2**2
     for i in range(len(truth_table)):
         A = truth_table[i][0][0]
         B = truth_table[i][0][1]
@@ -240,3 +240,21 @@ def test_EX_1_19():
         C = truth_table[i][0][2]
         r = truth_table[i][1]
         assert gate_EX_1_19(A, B, C) == r
+
+# 1.27
+def gate_AND_by_NOT_and_OR(A, B):
+    return gate_NOT(gate_OR(gate_NOT(A), gate_NOT(B)))
+
+# 1.27
+def test_AND_by_NOT_and_OR():
+    input_table = [
+        [0, 0],
+        [0, 1],
+        [1, 0],
+        [1, 1]
+    ]
+    assert len(input_table) == 2**2
+    for i in range(len(input_table)):
+        A = input_table[i][0]
+        B = input_table[i][1]
+        assert gate_AND_by_NOT_and_OR(A, B) == gate_AND(A, B)
