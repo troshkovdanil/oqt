@@ -293,3 +293,26 @@ def test_OR_by_NOR():
         A = input_table[i][0]
         B = input_table[i][1]
         assert gate_OR_by_NOR(A, B) == gate_OR(A, B)
+
+
+def gate_HalfAdd(A, B):
+    S = gate_XOR(A, B)
+    C = gate_AND(A, B)
+    return [S, C]
+
+def test_HalfAdd():
+    io_table = [
+        [[0, 0], [0, 0]],
+        [[0, 1], [1, 0]],
+        [[1, 0], [1, 0]],
+        [[1, 1], [0, 1]]
+    ]
+    assert len(io_table) == 2**2
+    for i in range(len(io_table)):
+        A = io_table[i][0][0]
+        B = io_table[i][0][1]
+        S = io_table[i][1][0]
+        C = io_table[i][1][1]
+        [rS, rC] = gate_HalfAdd(A, B)
+        assert rS == S
+        assert rC == C
