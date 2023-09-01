@@ -148,8 +148,11 @@ def test_NEG_OR():
     ]
     assert len(truth_table) == 2*2
     for i in range(len(truth_table)):
-        assert gate_NEG_OR(truth_table[i][0][0], truth_table[i][0][1]) == truth_table[i][1]
-        assert   gate_NAND(truth_table[i][0][0], truth_table[i][0][1]) == truth_table[i][1]
+        A = truth_table[i][0][0]
+        B = truth_table[i][0][1]
+        r = truth_table[i][1]
+        assert gate_NEG_OR(A, B) == r
+        assert gate_NAND(A, B) == r
 
 def gate_NEG_AND(A, B):
     return gate_AND(gate_NOT(A), gate_NOT(B))
@@ -166,8 +169,11 @@ def test_NEG_AND():
     ]
     assert len(truth_table) == 2*2
     for i in range(len(truth_table)):
-        assert gate_NEG_AND(truth_table[i][0][0], truth_table[i][0][1]) == truth_table[i][1]
-        assert     gate_NOR(truth_table[i][0][0], truth_table[i][0][1]) == truth_table[i][1]
+        A = truth_table[i][0][0]
+        B = truth_table[i][0][1]
+        r = truth_table[i][1]
+        assert gate_NEG_AND(A, B) == r
+        assert gate_NOR(A, B) == r
 
 def gate_XOR3(A, B, C):
     return gate_XOR(gate_XOR(A, B), C)
@@ -185,5 +191,9 @@ def test_XOR3():
     ]
     assert len(truth_table) == 2**3
     for i in range(len(truth_table)):
-        assert gate_XOR3(truth_table[i][0][0], truth_table[i][0][1], truth_table[i][0][2]) == truth_table[i][1]
-        assert truth_table[i][1] == 0 if (truth_table[i][0][0] + truth_table[i][0][1] + truth_table[i][0][2]) % 2 == 0 else truth_table[i][1] == 1
+        A = truth_table[i][0][0]
+        B = truth_table[i][0][1]
+        C = truth_table[i][0][2]
+        r = truth_table[i][1]
+        assert gate_XOR3(A, B, C) == r
+        assert r == 0 if (A + B + C) % 2 == 0 else r == 1
