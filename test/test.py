@@ -16,30 +16,39 @@ print(f"{bcolors.OKGREEN}Hi Python!{bcolors.ENDC}")
 import pytest
 
 
+# 1.5 a
 def test_bin_10111_to_dec():
     assert int("10111", 2) == 23
 
+# 1.5 b
 def test_bin_11001010_to_dec():
     assert int("11001010", 2) == 202
 
+# 1.6 a
 def test_dec_42_to_bin():
     assert str(bin(42)) == "0b101010"
 
+# 1.6 b
 def test_dec_495_to_bin():
     assert str(bin(495)) == "0b111101111"
 
+# 1.7 a
 def test_hex_3B7C_to_dec():
     assert int("3B7C", 16) == 15228
 
+# 1.7 b
 def test_hex_FF_to_bin():
     assert str(bin(int("FF", 16))) == "0b11111111"
 
+# 1.7 c
 def test_hex_FA_to_dec():
     assert int("FA", 16) == 250
 
+# 1.7 c
 def test_hex_10_to_dec():
     assert int("10", 16) == 16
 
+# 1.7 c
 def test_hex_E4_to_dec():
     assert int("E4", 16) == 228
 
@@ -48,6 +57,7 @@ def test_hex_E4_to_dec():
 from bitstring import BitArray
 
 
+# 1.8
 def test_bin_000_to_dec():
     assert BitArray(bin="000").int == 0
 
@@ -69,13 +79,16 @@ def test_bin_101_to_dec():
 def test_bin_110_to_dec():
     assert BitArray(bin="110").int == -2
 
+# 1.8
 def test_bin_111_to_dec():
     assert BitArray(bin="111").int == -1
 
 
+# 1.10
 def test_bin_1010001_to_char():
     assert BitArray(bin="1010001").uint == ord('Q')
     
+# 1.10
 def test_bits_to_ASCII():
     bits_list = [1010001, 1110101, 1100001, 1101110, 1110100, 1110101, 1101101]
     chars_list = "Quantum"
@@ -84,6 +97,7 @@ def test_bits_to_ASCII():
         assert BitArray(bin=str(bits_list[i])).uint == ord(chars_list[i])
 
 
+# 1.11
 def gate_NOT(A):
     assert A == 0 or A == 1
     return 1 if A == 0 else 0
@@ -139,6 +153,7 @@ def gate_NEG_OR(A, B):
 def gate_NAND(A, B):
     return gate_NOT(gate_AND(A, B))
 
+# 1.11
 def test_NEG_OR():
     truth_table = [
         [[0, 0], 1],
@@ -154,12 +169,14 @@ def test_NEG_OR():
         assert gate_NEG_OR(A, B) == r
         assert gate_NAND(A, B) == r
 
+# 1.12
 def gate_NEG_AND(A, B):
     return gate_AND(gate_NOT(A), gate_NOT(B))
 
 def gate_NOR(A, B):
     return gate_NOT(gate_OR(A, B))
 
+# 1.12
 def test_NEG_AND():
     truth_table = [
         [[0, 0], 1],
@@ -175,9 +192,11 @@ def test_NEG_AND():
         assert gate_NEG_AND(A, B) == r
         assert gate_NOR(A, B) == r
 
+# 1.18
 def gate_XOR3(A, B, C):
     return gate_XOR(gate_XOR(A, B), C)
 
+# 1.18
 def test_XOR3():
     truth_table = [
         [[0, 0, 0], 0],
@@ -198,9 +217,11 @@ def test_XOR3():
         assert gate_XOR3(A, B, C) == r
         assert r == 0 if (A + B + C) % 2 == 0 else r == 1
 
+# 1.19
 def gate_EX_1_19(A, B, C):
     return gate_NOT(gate_AND(gate_OR(A, B), gate_NAND(C, C)))
 
+# 1.19
 def test_EX_1_19():
     truth_table = [
         [[0, 0, 0], 1],
