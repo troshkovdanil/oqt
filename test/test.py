@@ -258,3 +258,38 @@ def test_AND_by_NOT_and_OR():
         A = input_table[i][0]
         B = input_table[i][1]
         assert gate_AND_by_NOT_and_OR(A, B) == gate_AND(A, B)
+
+# 1.28 a
+def gate_NOT_by_NOR(A):
+    return gate_NOR(A, A)
+
+# 1.28 a
+def test_NOT_by_NOR():
+    input_table = [
+        0,
+        1
+    ]
+    assert len(input_table) == 2**1
+    for i in range(len(input_table)):
+        A = input_table[0]
+        B = input_table[1]
+        assert gate_NOT_by_NOR(A) == gate_NOT(A)
+
+# 1.28 b
+def gate_OR_by_NOR(A, B):
+    t = gate_NOR(A, B)
+    return gate_NOR(t, t)
+
+# 1.28 b
+def test_OR_by_NOR():
+    input_table = [
+        [0, 0],
+        [0, 1],
+        [1, 0],
+        [1, 1]
+    ]
+    assert len(input_table) == 2**2
+    for i in range(len(input_table)):
+        A = input_table[i][0]
+        B = input_table[i][1]
+        assert gate_OR_by_NOR(A, B) == gate_OR(A, B)
