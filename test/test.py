@@ -197,3 +197,25 @@ def test_XOR3():
         r = truth_table[i][1]
         assert gate_XOR3(A, B, C) == r
         assert r == 0 if (A + B + C) % 2 == 0 else r == 1
+
+def gate_EX_1_19(A, B, C):
+    return gate_NOT(gate_AND(gate_OR(A, B), gate_NAND(C, C)))
+
+def test_EX_1_19():
+    truth_table = [
+        [[0, 0, 0], 1],
+        [[0, 0, 1], 1],
+        [[0, 1, 0], 0],
+        [[0, 1, 1], 1],
+        [[1, 0, 0], 0],
+        [[1, 0, 1], 1],
+        [[1, 1, 0], 0],
+        [[1, 1, 1], 1]
+    ]
+    assert len(truth_table) == 2**3
+    for i in range(len(truth_table)):
+        A = truth_table[i][0][0]
+        B = truth_table[i][0][1]
+        C = truth_table[i][0][2]
+        r = truth_table[i][1]
+        assert gate_EX_1_19(A, B, C) == r
