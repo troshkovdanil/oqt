@@ -316,3 +316,31 @@ def test_HalfAdd():
         [rS, rC] = gate_HalfAdd(A, B)
         assert rS == S
         assert rC == C
+
+def gate_FullAdd(A, B, C):
+    [rS, rCout] = gate_HalfAdd(A, B)
+    [S, rCout2] = gate_HalfAdd(C, rS)
+    Cout = gate_OR(rCout2, rCout)
+    return [S, Cout]
+
+def test_FullAdd():
+    io_table = [
+        [[0, 0, 0], [0, 0]],
+        [[0, 0, 1], [1, 0]],
+        [[0, 1, 0], [1, 0]],
+        [[0, 1, 1], [0, 1]],
+        [[1, 0, 0], [1, 0]],
+        [[1, 0, 1], [0, 1]],
+        [[1, 1, 0], [0, 1]],
+        [[1, 1, 1], [1, 1]]
+    ]
+    assert len(io_table) == 2**3
+    for i in range(len(io_table)):
+        A = io_table[i][0][0]
+        B = io_table[i][0][1]
+        C = io_table[i][0][2]
+        S = io_table[i][1][0]
+        Cout = io_table[i][1][1]
+        [rS, rCout] = gate_FullAdd(A, B, C)
+        assert rS == S
+        assert rCout == Cout
