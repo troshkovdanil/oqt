@@ -82,3 +82,74 @@ def test_bits_to_ASCII():
     assert len(bits_list) == len(chars_list)
     for i in range(len(bits_list)):
         assert BitArray(bin=str(bits_list[i])).uint == ord(chars_list[i])
+
+
+def gate_NOT(A):
+    assert A == 0 or A == 1
+    return 1 if A == 0 else 0
+
+def gate_OR(A, B):
+    assert A == 0 or A == 1
+    assert B == 0 or B == 1
+    truth_table = [
+        [[0, 0], 0],
+        [[0, 1], 1],
+        [[1, 0], 1],
+        [[1, 1], 1]
+    ]
+    assert len(truth_table) == 2*2
+    for i in range(len(truth_table)):
+        if truth_table[i][0][0] == A and truth_table[i][0][1] == B:
+            return truth_table[i][1]
+    assert 0
+
+def gate_AND(A, B):
+    assert A == 0 or A == 1
+    assert B == 0 or B == 1
+    truth_table = [
+        [[0, 0], 0],
+        [[0, 1], 0],
+        [[1, 0], 0],
+        [[1, 1], 1]
+    ]
+    assert len(truth_table) == 2*2
+    for i in range(len(truth_table)):
+        if truth_table[i][0][0] == A and truth_table[i][0][1] == B:
+            return truth_table[i][1]
+    assert 0
+
+def gate_NEG_OR(A, B):
+    return gate_OR(gate_NOT(A), gate_NOT(B))
+
+def gate_NAND(A, B):
+    return gate_NOT(gate_AND(A, B))
+
+def test_NEG_OR():
+    truth_table = [
+        [[0, 0], 1],
+        [[0, 1], 1],
+        [[1, 0], 1],
+        [[1, 1], 0]
+    ]
+    assert len(truth_table) == 2*2
+    for i in range(len(truth_table)):
+        assert gate_NEG_OR(truth_table[i][0][0], truth_table[i][0][1]) == truth_table[i][1]
+        assert   gate_NAND(truth_table[i][0][0], truth_table[i][0][1]) == truth_table[i][1]
+
+def gate_NEG_AND(A, B):
+    return gate_AND(gate_NOT(A), gate_NOT(B))
+
+def gate_NOR(A, B):
+    return gate_NOT(gate_OR(A, B))
+
+def test_NEG_AND():
+    truth_table = [
+        [[0, 0], 1],
+        [[0, 1], 0],
+        [[1, 0], 0],
+        [[1, 1], 0]
+    ]
+    assert len(truth_table) == 2*2
+    for i in range(len(truth_table)):
+        assert gate_NEG_AND(truth_table[i][0][0], truth_table[i][0][1]) == truth_table[i][1]
+        assert     gate_NOR(truth_table[i][0][0], truth_table[i][0][1]) == truth_table[i][1]
