@@ -317,7 +317,7 @@ def test_HalfAdd():
         assert rS == S
         assert rC == C
 
-def gate_FullAdd(A, B, C):
+def gate_FullAdd(C, A, B):
     [rS, rCout] = gate_HalfAdd(A, B)
     [S, rCout2] = gate_HalfAdd(C, rS)
     Cout = gate_OR(rCout2, rCout)
@@ -341,6 +341,32 @@ def test_FullAdd():
         C = io_table[i][0][2]
         S = io_table[i][1][0]
         Cout = io_table[i][1][1]
-        [rS, rCout] = gate_FullAdd(A, B, C)
+        [rS, rCout] = gate_FullAdd(C, A, B)
         assert rS == S
         assert rCout == Cout
+
+def gate_RippleAdd(A, B):
+    assert len(A) == len(B)
+    S = []
+    c = 0
+    for i in reversed(range(len(A))):
+        a = int(A[i])
+        assert a == 0 or a == 1
+        b = int(B[i])
+        assert b == 0 or b == 1
+        [s, c_out] = gate_FullAdd(c, b, a)
+        assert c_out == 0 or c_out == 1
+        S.append(s)
+        c = c_out
+    S.append(c)
+    assert len(S) == len(A) + 1
+    r = ''
+    for c in reversed(S):
+        r += str(c)
+    return r
+
+# 1.31, 1.32, 1.33
+def test_RippleAdd():
+    assert str(gate_RippleAdd('1001', '0111')) == '10000'
+    assert str(gate_RippleAdd('10101101', '00111001')) == '0' + '11100110'
+    assert str(gate_RippleAdd('0110', '1110')) == '10100'
