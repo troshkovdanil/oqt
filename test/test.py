@@ -370,3 +370,4 @@ def test_RippleAdd():
     assert str(gate_RippleAdd('1001', '0111')) == '10000'
     assert str(gate_RippleAdd('10101101', '00111001')) == '0' + '11100110'
     assert str(gate_RippleAdd('0110', '1110')) == '10100'
+    assert str(gate_RippleAdd('0010', '0010')) == '00100'
